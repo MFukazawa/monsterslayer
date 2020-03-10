@@ -53,9 +53,9 @@
       </section>
       <section v-if="newGameAttack" class="row log">
         <div class="small-12 columns">
-          <ul>
-            <li>Player did {{playerAttack}} damage!</li>
-            <li>Monster did {{monsterAttack}} damage!</li>
+          <ul v-for="attack in attacks">
+            <li>Player did {{attack}} damage!</li>
+            <li>Monster did {{attack}} damage!</li>
           </ul>
         </div>
       </section>
