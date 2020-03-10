@@ -9,6 +9,9 @@ new Vue({
   methods: {
     newGameStart: function() {
       this.newGame = !this.newGame;
+    },
+    newGameDamage: function() {
+      this.newGameAttack = true;
     }
   }
 });
