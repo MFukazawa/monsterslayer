@@ -41,18 +41,21 @@
       </section>
       <section v-if="newGame" class="row controls">
         <div class="small-12 columns">
-          <button @click="newGameDamage" id="attack">ATTACK</button>
+          <button @click="newGameDamage" id="attack">
+            ATTACK
+          </button>
           <button @click="newGameDamage" id="special-attack">
             SPECIAL ATTACK
           </button>
           <button id="heal">HEAL</button>
-          <button @click="newGameStart" id="give-up">GIVE UP</button>
+          <button @click="gameReset" id="give-up">GIVE UP</button>
         </div>
       </section>
       <section v-if="newGameAttack" class="row log">
         <div class="small-12 columns">
           <ul>
-            <li></li>
+            <li>Player did {{playerAttack}} damage!</li>
+            <li>Monster did {{monsterAttack}} damage!</li>
           </ul>
         </div>
       </section>
