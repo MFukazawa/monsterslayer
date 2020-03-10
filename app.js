@@ -7,8 +7,10 @@ new Vue({
     monsterHP: 100,
     playerAttack: "",
     monsterAttack: "",
-    playerAttacks: [],
-    monsterAttacks: []
+    attacks: {
+      playerAttacks: [],
+      monsterAttacks: []
+    }
   },
   methods: {
     newGameStart: function() {
@@ -16,8 +18,8 @@ new Vue({
     },
     newGameDamage: function() {
       this.newGameAttack = true;
-      this.attacks.push(this.normalAttack());
-      console.log(this.attacks);
+      this.playerHP = 100;
+      this.monsterHP = 100;
     },
     gameReset: function() {
       this.newGame = !this.newGame;

@@ -11,10 +11,11 @@
       <section class="row">
         <div class="small-6 columns">
           <h1 class="text-center">YOU</h1>
-          <div class="healthbar-outer">
+          <div class="healthbar">
             <div
               class="healthbar text-center"
               style="background-color: green; margin: 0; color: white;"
+              :style="{width:playerHP + '%'}"
             >
               {{ playerHP }}
             </div>
@@ -22,10 +23,11 @@
         </div>
         <div class="small-6 columns">
           <h1 class="text-center">MONSTER</h1>
-          <div class="healthbar-outer">
+          <div class="healthbar">
             <div
               class="healthbar text-center"
               style="background-color: green; margin: 0; color: white;"
+              :style="{width:monsterHP + '%'}"
             >
               {{ monsterHP }}
             </div>
@@ -39,7 +41,7 @@
           </button>
         </div>
       </section>
-      <section v-if="newGame" class="row controls">
+      <section v-else class="row controls">
         <div class="small-12 columns">
           <button @click="newGameDamage" id="attack">
             ATTACK
@@ -54,8 +56,12 @@
       <section v-if="newGameAttack" class="row log">
         <div class="small-12 columns">
           <ul v-for="attack in attacks">
-            <li>Player did {{attack}} damage!</li>
-            <li>Monster did {{attack}} damage!</li>
+            <li v-for="playerAttack in playerAttacks">
+              Player did {{playerAttack}} damage!
+            </li>
+            <li>
+              Monster did {{attack[1]}} damage!
+            </li>
           </ul>
         </div>
       </section>
