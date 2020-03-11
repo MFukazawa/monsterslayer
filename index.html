@@ -56,14 +56,14 @@
         </div>
       </section>
 
-      <section v-if="" class="row log">
+      <section v-if="turns.length > 0" class="row log">
         <div class="small-12 columns">
-          <ul v-for="attack in attacks">
-            <li v-for="playerAttack in playerAttacks">
-              Player did {{playerAttack}} damage!
-            </li>
-            <li>
-              Monster did {{attack[1]}} damage!
+          <ul>
+            <li
+              v-for="turn in turns"
+              :class="{'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer}"
+            >
+              {{turn.text}}
             </li>
           </ul>
         </div>

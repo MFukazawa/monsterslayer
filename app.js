@@ -4,44 +4,68 @@ new Vue({
     gameIsRunning: false,
     playerHP: 100,
     monsterHP: 100,
-    playerAttack: "",
-    monsterAttack: "",
-    attacks: {
-      playerAttacks: [],
-      monsterAttacks: []
-    }
+    turns: []
   },
   methods: {
     startGame: function() {
       this.gameIsRunning = true;
       this.playerHP = 100;
       this.monsterHP = 100;
+      this.turns = [];
     },
     gameReset: function() {
       this.gameIsRunning = false;
     },
     normalAttack: function() {
-      this.monsterHP -= this.calculateDamage(1, 10);
+      var damage = this.calculateDamage(1, 10);
+      this.monsterHP -= damage;
+      this.turns.unshift({
+        isPlayer: true,
+        text: "Player hits for " + damage + " points of damage!"
+      });
       if (this.checkWin()) {
         return;
       }
-      this.playerHP -= this.calculateDamage(3, 12);
-      this.checkWin();
+      this.monsterAttack();
     },
     specialAttack: function() {
-      this.monsterHP -= this.calculateDamage(10, 20);
+      var damage = this.calculateDamage(10, 20);
+      this.monsterHP -= damage;
+      this.turns.unshift({
+        isPlayer: true,
+        text:
+          "Player shoots a beam of light. It smashes for " +
+          damage +
+          " points of damage!"
+      });
+
       if (this.checkWin()) {
         return;
       }
-      this.playerHP -= this.calculateDamage(3, 12);
-      this.checkWin();
+      this.monsterAttack();
     },
     heal: function() {
-      this.playerHP += this.calculateDamage(10, 12);
-      if (this.checkWin()) {
-        return;
+      if (this.playerHP <= 90) {
+        this.playerHP += 10;
+      } else {
+        this.playerHP = 100;
       }
-      this.playerHP -= this.calculateDamage(3, 12);
+
+      this.turns.unshift({
+        isPlayer: true,
+        text: "Player heals for 10 HP!"
+      });
+
+      this.monsterAttack();
+    },
+    monsterAttack: function() {
+      var damage = this.calculateDamage(3, 12);
+      this.playerHP -= damage;
+      this.turns.unshift({
+        isPlayer: false,
+        text: "Monster hits for " + damage + " points of damage!"
+      });
+
       this.checkWin();
     },
     calculateDamage: function(min, max) {
