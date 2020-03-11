@@ -34,26 +34,29 @@
           </div>
         </div>
       </section>
-      <section v-if="!newGame" class="row controls">
+
+      <section v-if="!gameIsRunning" class="row controls">
         <div class="small-12 columns">
-          <button id="start-game" @click="newGameStart">
+          <button id="start-game" @click="startGame">
             START NEW GAME
           </button>
         </div>
       </section>
+
       <section v-else class="row controls">
         <div class="small-12 columns">
-          <button @click="newGameDamage" id="attack">
+          <button @click="normalAttack" id="attack">
             ATTACK
           </button>
-          <button @click="newGameDamage" id="special-attack">
+          <button @click="specialAttack" id="special-attack">
             SPECIAL ATTACK
           </button>
-          <button id="heal">HEAL</button>
+          <button @click="heal" id="heal">HEAL</button>
           <button @click="gameReset" id="give-up">GIVE UP</button>
         </div>
       </section>
-      <section v-if="newGameAttack" class="row log">
+
+      <section v-if="" class="row log">
         <div class="small-12 columns">
           <ul v-for="attack in attacks">
             <li v-for="playerAttack in playerAttacks">

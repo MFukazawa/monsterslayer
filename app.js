@@ -1,8 +1,7 @@
 new Vue({
   el: "#app",
   data: {
-    newGame: false,
-    newGameAttack: false,
+    gameIsRunning: false,
     playerHP: 100,
     monsterHP: 100,
     playerAttack: "",
@@ -13,22 +12,46 @@ new Vue({
     }
   },
   methods: {
-    newGameStart: function() {
-      this.newGame = !this.newGame;
-    },
-    newGameDamage: function() {
-      this.newGameAttack = true;
+    startGame: function() {
+      this.gameIsRunning = true;
       this.playerHP = 100;
       this.monsterHP = 100;
     },
     gameReset: function() {
-      this.newGame = !this.newGame;
-      this.newGameAttack = false;
+      this.gameIsRunning = false;
     },
-    normalAttack: function(min, max) {
-      min = Math.ceil(1);
-      max = Math.floor(10);
-      return Math.floor(Math.random() * (max - min)) + min;
+    normalAttack: function() {
+      min = 1;
+      max = 10;
+      this.monsterHP -= this.calculateDamage(1, 10);
+      if (this.checkWin()) {
+        return;
+      }
+      this.playerHP -= this.calculateDamage(3, 12);
+      this.checkWin();
+    },
+    specialAttack: function() {},
+    heal: function() {},
+    calculateDamage: function(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    },
+    checkWin: function() {
+      if (this.monsterHP <= 0 && this.playerHP >= 0) {
+        if (confirm("You win! One more?")) {
+          this.startGame();
+        } else {
+          this.gameIsRunning = false;
+        }
+        return true;
+      } else if (this.playerHP <= 0 && this.monsterHP >= 0) {
+        if (confirm("Defeat... Get up?")) {
+          this.startGame();
+        } else {
+          this.gameIsRunning = false;
+        }
+        return true;
+      }
+      return false;
     }
   }
 });
