@@ -21,8 +21,6 @@ new Vue({
       this.gameIsRunning = false;
     },
     normalAttack: function() {
-      min = 1;
-      max = 10;
       this.monsterHP -= this.calculateDamage(1, 10);
       if (this.checkWin()) {
         return;
@@ -30,8 +28,22 @@ new Vue({
       this.playerHP -= this.calculateDamage(3, 12);
       this.checkWin();
     },
-    specialAttack: function() {},
-    heal: function() {},
+    specialAttack: function() {
+      this.monsterHP -= this.calculateDamage(10, 20);
+      if (this.checkWin()) {
+        return;
+      }
+      this.playerHP -= this.calculateDamage(3, 12);
+      this.checkWin();
+    },
+    heal: function() {
+      this.playerHP += this.calculateDamage(10, 12);
+      if (this.checkWin()) {
+        return;
+      }
+      this.playerHP -= this.calculateDamage(3, 12);
+      this.checkWin();
+    },
     calculateDamage: function(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     },
