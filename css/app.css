@@ -94,3 +94,20 @@ button {
 #give-up:hover {
   background-color: #c7c7c7;
 }
+
+.zoomIn-enter {
+  animation: zoomIn 0.5s ease-out forwards;
+}
+
+.zoomIn-enter-active {
+  animation: zoomIn 0.5s ease-out forwards;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
