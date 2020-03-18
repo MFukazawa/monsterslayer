@@ -4,7 +4,8 @@ new Vue({
     gameIsRunning: false,
     playerHP: 100,
     monsterHP: 100,
-    turns: []
+    turns: [],
+    currentTurn: 0
   },
   methods: {
     startGame: function() {
@@ -21,8 +22,10 @@ new Vue({
       this.monsterHP -= damage;
       this.turns.unshift({
         isPlayer: true,
-        text: "Player hits for " + damage + " points of damage!"
+        text: "Player hits for " + damage + " points of damage!",
+        id: this.currentTurn + 1
       });
+      this.currentTurn++;
       if (this.checkWin()) {
         return;
       }
@@ -36,9 +39,10 @@ new Vue({
         text:
           "Player shoots a beam of light. It smashes for " +
           damage +
-          " points of damage!"
+          " points of damage!",
+        id: this.currentTurn + 1
       });
-
+      this.currentTurn++;
       if (this.checkWin()) {
         return;
       }
@@ -53,9 +57,10 @@ new Vue({
 
       this.turns.unshift({
         isPlayer: true,
-        text: "Player heals for 10 HP!"
+        text: "Player heals for 10 HP!",
+        turn: this.currentTurn + 1
       });
-
+      this.currentTurn++;
       this.monsterAttack();
     },
     monsterAttack: function() {
@@ -63,9 +68,10 @@ new Vue({
       this.playerHP -= damage;
       this.turns.unshift({
         isPlayer: false,
-        text: "Monster hits for " + damage + " points of damage!"
+        text: "Monster hits for " + damage + " points of damage!",
+        id: this.currentTurn + 1
       });
-
+      this.currentTurn++;
       this.checkWin();
     },
     calculateDamage: function(min, max) {
